@@ -27,7 +27,7 @@ function PostCard({ post, onPress }) {
   return (
     <TouchableOpacity
       onPress={onPress}
-      className="bg-surface-low border border-outline-variant/50 rounded-xl mx-5 mb-3 p-4"
+      className="bg-surface border border-outline-variant/50 rounded-xl mx-5 mb-3 p-4"
       activeOpacity={0.75}
     >
       {/* Reading indicator */}
@@ -91,7 +91,7 @@ export default function HomeFeed() {
           <Text className="text-on-surface text-xl font-semibold">AnonymousDesk</Text>
         </View>
         <TouchableOpacity onPress={() => router.push('/')} className="w-9 h-9 rounded-full bg-surface-high items-center justify-center">
-          <Ionicons name="person-outline" size={18} color="#8c909f" />
+          <Ionicons name="search" size={18} color="#8c909f" />
         </TouchableOpacity>
       </View>
 

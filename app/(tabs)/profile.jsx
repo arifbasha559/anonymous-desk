@@ -6,7 +6,7 @@ import { RECENT_ACTIVITY } from "../../data/mockData";
 
 const TRUST_LEVELS = ["NEWCOMER", "CONTRIBUTOR", "TRUSTED", "EXPERT"];
 const CURRENT_LEVEL = 1; // 0-indexed, CONTRIBUTOR
-const PROGRESS = 0.75;
+const PROGRESS = CURRENT_LEVEL / 3; // 4 levels, so divide by 3 to get progress
 
 export default function Profile() {
   return (
@@ -23,7 +23,7 @@ export default function Profile() {
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View className="px-5 pt-2">
+        <View className="px-5 gap-5 pt-2">
 
           {/* Confidential Profile header */}
           <View className="mb-6">
@@ -31,7 +31,7 @@ export default function Profile() {
               <Ionicons name="lock-closed-outline" size={16} color="#8c909f" />
               <Text className="text-outline text-base">User #8291</Text>
             </View>
-            <Text className="text-on-surface-variant text-sm leading-relaxed">
+            <Text className="text-on-surface-variant w-1/2 text-sm leading-relaxed">
               Your identity remains hidden. These verified statistics establish your credibility
               within the network.
             </Text>
@@ -71,25 +71,29 @@ export default function Profile() {
           </View>
 
           {/* Karma score */}
-          <LinearGradient
-            colors={["#1a2744", "#0e1a35"]}
-            className="rounded-xl p-5 mb-4 border border-primary/20"
+          <View
+            className="rounded-xl mb-4 border overflow-hidden border-primary/20"
           >
-            <Text className="text-primary text-xs font-medium tracking-widest uppercase text-center mb-1">
-              Karma Score
-            </Text>
-            <View className="flex-row items-center justify-center gap-2 mb-2">
-              <Text className="text-on-surface text-5xl font-bold">4,820</Text>
-              <Ionicons name="trending-up" size={22} color="#4ade80" />
-            </View>
-            <View className="flex-row items-center justify-center gap-1.5 bg-primary/10 rounded-full px-3 py-1 self-center mb-2">
-              <Ionicons name="trophy-outline" size={12} color="#adc6ff" />
-              <Text className="text-primary text-xs font-medium">Top 5% Contributor</Text>
-            </View>
-            <Text className="text-on-surface-variant text-xs text-center leading-relaxed">
-              Highly trusted peer based on community upvotes and accepted advice.
-            </Text>
-          </LinearGradient>
+            <LinearGradient
+              colors={["#1a2744", "#0e1a35"]}
+              style={{ padding: 16, alignItems: "center" }}
+            >
+              <Text className="text-primary text-xs font-medium tracking-widest uppercase text-center mb-1">
+                Karma Score
+              </Text>
+              <View className="flex-row items-center justify-center gap-2 mb-2">
+                <Text className="text-on-surface text-5xl font-bold">4,820</Text>
+                <Ionicons name="trending-up" size={22} color="#4ade80" />
+              </View>
+              <View className="flex-row items-center justify-center gap-1.5 bg-primary/10 rounded-full px-3 py-1 self-center mb-2">
+                <Ionicons name="trophy-outline" size={12} color="#adc6ff" />
+                <Text className="text-primary text-xs font-medium">Top 5% Contributor</Text>
+              </View>
+              <Text className="text-on-surface-variant text-xs text-center leading-relaxed">
+                Highly trusted peer based on community upvotes and accepted advice.
+              </Text>
+            </LinearGradient>
+          </View>
 
           {/* Stats row */}
           <View className="flex-row gap-3 mb-4">
@@ -111,7 +115,7 @@ export default function Profile() {
           {/* Industry */}
           <View className="bg-surface-low border border-outline-variant/50 rounded-xl p-4 mb-4">
             <View className="flex-row items-center gap-2 mb-1">
-              <Ionicons name="shield-checkmark-outline" size={14} color="#8c909f" />
+              <Ionicons name="shield-checkmark-outline" size={14} color="#adc6ff" />
               <Text className="text-outline text-xs font-medium tracking-widest uppercase">
                 Verified Industry
               </Text>

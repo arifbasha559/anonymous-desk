@@ -14,6 +14,7 @@ import { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import { CONTEXT_TAGS } from "../../data/mockData";
+import PostInput from "../../components/postInput";
 
 const MAX_CHARS = 2500;
 
@@ -37,7 +38,7 @@ export default function CreatePost() {
     Alert.alert(
       "Posted confidentially",
       "Your dilemma has been submitted anonymously. You'll be notified when experts respond.",
-      [{ text: "OK", onPress: () => router.replace("/(tabs)") }]
+      [{ text: "OK", onPress: () => { setBody(""); setSelectedTags([]);router.replace("/(tabs)") } }]
     );
   };
 
@@ -60,9 +61,7 @@ export default function CreatePost() {
             <Ionicons name="shield-checkmark" size={20} color="#adc6ff" />
             <Text className="text-on-surface text-xl font-semibold">AnonymousDesk</Text>
           </View>
-          <TouchableOpacity className="w-9 h-9 rounded-full bg-surface-high items-center justify-center">
-            <Ionicons name="person-outline" size={18} color="#8c909f" />
-          </TouchableOpacity>
+         
         </View>
 
         <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
@@ -84,34 +83,7 @@ export default function CreatePost() {
             </Text>
 
             {/* Text input */}
-            <View className="bg-surface-high border border-outline-variant rounded-xl mb-2 p-4 min-h-52">
-              <TextInput
-                multiline
-                value={body}
-                onChangeText={(t) => t.length <= MAX_CHARS && setBody(t)}
-                placeholder={`What's unfolding at work? E.g., 'I've discovered a significant pay disparity on my team, but bringing it up might jeopardize my recent promotion...'`}
-                placeholderTextColor="#424754"
-                className="text-on-surface text-base leading-relaxed flex-1"
-                style={{ minHeight: 140, textAlignVertical: "top" }}
-              />
-              {/* Toolbar */}
-              <View className="flex-row items-center justify-between mt-3 pt-3 border-t border-outline-variant/50">
-                <View className="flex-row gap-4">
-                  <TouchableOpacity>
-                    <Text className="text-outline font-bold text-sm">B</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity>
-                    <Text className="text-outline italic text-sm">I</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity>
-                    <Ionicons name="list-outline" size={16} color="#8c909f" />
-                  </TouchableOpacity>
-                </View>
-                <Text className={`text-xs ${charsLeft < 100 ? "text-error" : "text-outline"}`}>
-                  {body.length} / {MAX_CHARS}
-                </Text>
-              </View>
-            </View>
+            <PostInput setBody={setBody} body={body} />
 
             {/* Pro tip */}
             <View className="flex-row gap-2 mb-6">
@@ -132,11 +104,10 @@ export default function CreatePost() {
                   <TouchableOpacity
                     key={tag}
                     onPress={() => toggleTag(tag)}
-                    className={`px-4 py-2 rounded-lg border ${
-                      active
-                        ? "border-primary bg-primary/10"
-                        : "border-outline-variant bg-transparent"
-                    }`}
+                    className={`px-4 py-2 rounded-lg border ${active
+                      ? "border-primary bg-primary/10"
+                      : "border-outline-variant bg-transparent"
+                      }`}
                   >
                     <Text
                       className={`text-sm ${active ? "text-primary font-medium" : "text-on-surface-variant"}`}
@@ -164,7 +135,7 @@ export default function CreatePost() {
                 colors={["#4d8eff", "#3b6cf6"]}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 0 }}
-                className="flex-row items-center justify-center gap-2 py-4"
+                style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", paddingVertical: 12, paddingHorizontal: 16, gap: 8 }}
               >
                 <Ionicons name="shield-checkmark-outline" size={18} color="#fff" />
                 <Text className="text-white text-base font-semibold">

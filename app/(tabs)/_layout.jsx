@@ -1,17 +1,19 @@
-import { Tabs } from "expo-router";
-import { View, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { Tabs } from "expo-router";
+import { Text, View } from "react-native";
 
 function TabIcon({ name, focused, label }) {
   return (
-    <View className="items-center justify-center pt-1">
+    <View className="items-center justify-center pt-1 ">
       <Ionicons
         name={focused ? name : `${name}-outline`}
         size={22}
         color={focused ? "#adc6ff" : "#8c909f"}
       />
       <Text
-        className={`text-xs mt-0.5 ${focused ? "text-primary font-medium" : "text-outline"}`}
+        className={` flex-nowrap break-words mt-0.5 ${focused ? "text-primary font-medium" : "text-outline"}`}
+        numberOfLines={1}
+        ellipsizeMode="clip"
       >
         {label}
       </Text>
@@ -28,25 +30,39 @@ export default function TabsLayout() {
           backgroundColor: "#1c1b1b",
           borderTopColor: "#424754",
           borderTopWidth: 0.5,
-          height: 60,
-          paddingBottom: 8,
+          height: 80,
+          paddingBottom: 20,
+
         },
-        tabBarShowLabel: false,
+        tabBarLabelStyle: {
+          fontSize: 16
+        },
+        tabBarInactiveTintColor: "#8c909f",
+        tabBarActiveTintColor: "#adc6ff",
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
           tabBarIcon: ({ focused }) => (
-            <TabIcon name="home" focused={focused} label="Home" />
+            <Ionicons
+              name={focused ? "home" : "home-outline"}
+              size={22}
+              color={focused ? "#adc6ff" : "#8c909f"}
+            />
           ),
+
         }}
       />
       <Tabs.Screen
         name="create"
         options={{
           tabBarIcon: ({ focused }) => (
-            <TabIcon name="add-circle" focused={focused} label="Create" />
+            <Ionicons
+              name={focused ? "add-circle" : "add-circle-outline"}
+              size={22}
+              color={focused ? "#adc6ff" : "#8c909f"}
+            />
           ),
         }}
       />
@@ -54,7 +70,11 @@ export default function TabsLayout() {
         name="profile"
         options={{
           tabBarIcon: ({ focused }) => (
-            <TabIcon name="person" focused={focused} label="Profile" />
+            <Ionicons
+              name={focused ? "person" : "person-outline"}
+              size={22}
+              color={focused ? "#adc6ff" : "#8c909f"}
+            />
           ),
         }}
       />

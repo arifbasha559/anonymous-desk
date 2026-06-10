@@ -108,7 +108,7 @@ export default function Onboarding() {
         {/* CTA */}
         <View className="px-6 gap-3 mt-auto mb-8">
           <TouchableOpacity
-            onPress={() => router.replace("/sign-up")}
+            onPress={() => router.push("/create")}
             className="overflow-hidden rounded-xl"
           >
             <LinearGradient
@@ -131,7 +131,7 @@ export default function Onboarding() {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => router.replace("/sign-in")}
+            onPress={() => router.push("/sign-in")}
             className="items-center py-3"
           >
             <Text className="text-on-surface-variant text-sm">
