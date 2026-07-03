@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput } from 'react-native';
+import { useState } from 'react';
+import { Text, TextInput, View } from 'react-native';
 
 const MAX_CHARS = 1000;
 const MAX_TITLE_CHARS = 80;
@@ -12,7 +12,7 @@ export default function PostInput() {
 
   return (
     <View className="bg-surface-high border border-outline-variant rounded-xl mb-2 p-4 flex-1" style={{ minHeight: 250 }}>
-      
+
       {/* 1. Dedicated Title Field */}
       <TextInput
         value={title}
@@ -21,6 +21,7 @@ export default function PostInput() {
         placeholderTextColor="#424754"
         maxLength={MAX_TITLE_CHARS}
         className="text-on-surface text-xl font-bold mb-3"
+        submitBehavior='blurAndSubmit'
       />
 
       {/* Subtle Divider */}
@@ -29,6 +30,7 @@ export default function PostInput() {
       {/* 2. Native Multiline Description Field */}
       <TextInput
         multiline
+        id='body'
         value={body}
         onChangeText={(text) => {
           if (text.length <= MAX_CHARS) {

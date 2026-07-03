@@ -27,7 +27,7 @@ function PostCard({ post, onPress }) {
   return (
     <TouchableOpacity
       onPress={onPress}
-      className="bg-surface border border-outline-variant/50 rounded-xl mx-5 mb-3 p-4"
+      className="bg-surface border gap-2 border-outline-variant/50 rounded-xl mx-5 mb-3 p-4"
       activeOpacity={0.75}
     >
       {/* Reading indicator */}

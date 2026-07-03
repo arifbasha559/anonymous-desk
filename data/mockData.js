@@ -177,6 +177,7 @@ export const CONTEXT_TAGS = [
   "Legal",
   "HR",
   "Workplace Culture",
+  "Other",
 ];
 
 export const RECENT_ACTIVITY = [

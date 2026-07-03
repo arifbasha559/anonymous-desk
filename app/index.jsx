@@ -131,7 +131,7 @@ export default function Onboarding() {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => router.push("/sign-in")}
+            onPress={() => router.push("/setting")}
             className="items-center py-3"
           >
             <Text className="text-on-surface-variant text-sm">

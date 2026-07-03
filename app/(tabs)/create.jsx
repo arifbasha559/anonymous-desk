@@ -1,20 +1,19 @@
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  ScrollView,
-  KeyboardAvoidingView,
-  Platform,
-  Alert,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
-import { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
-import { CONTEXT_TAGS } from "../../data/mockData";
+import { useState } from "react";
+import {
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import PostInput from "../../components/postInput";
+import { CONTEXT_TAGS } from "../../data/mockData";
 
 const MAX_CHARS = 2500;
 
@@ -98,19 +97,19 @@ export default function CreatePost() {
               Context Tags
             </Text>
             <View className="flex-row flex-wrap gap-2 mb-8">
-              {CONTEXT_TAGS.map((tag) => {
+              {CONTEXT_TAGS.map((tag,i) => {
                 const active = selectedTags.includes(tag);
                 return (
                   <TouchableOpacity
-                    key={tag}
+                    key={i}
                     onPress={() => toggleTag(tag)}
-                    className={`px-4 py-2 rounded-lg border ${active
-                      ? "border-primary bg-primary/10"
-                      : "border-outline-variant bg-transparent"
+                    className={` py-2 rounded-lg border px-4 ${active
+                      ? "border-primary bg-primary/10 "
+                      : "border-outline-variant bg-transparent "
                       }`}
                   >
                     <Text
-                      className={`text-sm ${active ? "text-primary font-medium" : "text-on-surface-variant"}`}
+                      className={`text-sm ${active ? "text-primary" : " text-on-surface-variant"}`}
                     >
                       {tag}
                     </Text>
