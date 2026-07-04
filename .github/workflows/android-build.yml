@@ -80,11 +80,11 @@ jobs:
         working-directory: ./android
         run: ./gradlew assembleRelease --no-daemon
 
-      - name: Upload debug APK artifact
+      - name: Upload release APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: anonymousdesk-debug-apk
-          path: ./android/app/build/outputs/apk/debug/app-debug.apk
+          name: anonymousdesk-release-apk
+          path: ./android/app/build/outputs/apk/release/app-release.apk
           retention-days: 14
 
       # --- RELEASE BUILD (uncomment once you have a keystore set up) ---
