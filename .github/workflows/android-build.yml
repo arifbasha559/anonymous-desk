@@ -1,0 +1,112 @@
+# .github/workflows/android-build.yml
+#
+# Builds the AnonymousDesk Expo/React Native  as a native Android APK
+# using gradlew (no EAS, no store upload). The APK is uploaded as a GitHub
+# Actions artifact you can download manually from the workflow run page.
+
+name: Android Build (gradlew)
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - "/**"                     # adjust to your actual  folder
+      - ".github/workflows/android-build.yml"
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - "/**"
+  workflow_dispatch: {}                   # lets you trigger it manually from the Actions tab
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./      # <-- change this if your Expo app lives elsewhere
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: ./package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('./android/**/*.gradle*', './android/gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      # If you're on Expo's managed workflow and don't commit the android/
+      # folder, this regenerates it before building. If you already commit
+      # android/ (bare workflow), this step is skipped automatically.
+      - name: Check for native android folder
+        id: check_android
+        run: |
+          if [ -d "android" ]; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Expo prebuild (Android)
+        if: steps.check_android.outputs.exists == 'false'
+        run: npx expo prebuild --platform android --no-install
+
+      - name: Make gradlew executable
+        run: chmod +x android/gradlew
+
+      # --- DEBUG BUILD (default, no signing required) ---
+      - name: Build debug APK
+        working-directory: ./android
+        run: ./gradlew assembleRelease --no-daemon
+
+      - name: Upload debug APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: anonymousdesk-debug-apk
+          path: ./android/app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 14
+
+      # --- RELEASE BUILD (uncomment once you have a keystore set up) ---
+      # Requires these repo secrets:
+      #   ANDROID_KEYSTORE_BASE64, ANDROID_KEYSTORE_PASSWORD,
+      #   ANDROID_KEY_ALIAS, ANDROID_KEY_PASSWORD
+      #
+      # - name: Decode keystore
+      #   working-directory: ./android
+      #   run: echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > app/release.keystore
+      #
+      # - name: Build release APK
+      #   working-directory: ./android
+      #   env:
+      #     ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+      #     ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+      #     ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+      #   run: ./gradlew assembleRelease --no-daemon
+      #
+      # - name: Upload release APK artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: anonymousdesk-release-apk
+      #     path: ./android/app/build/outputs/apk/release/app-release.apk
+      #     retention-days: 30
