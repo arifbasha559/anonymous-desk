@@ -1,0 +1,42 @@
+{
+  "expo": {
+    "name": "AnonymousDesk",
+    "slug": "anonymous-desk",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "splash": {
+      "backgroundColor": "#131313"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.anonymousdesk.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#131313"
+      },
+      "package": "com.anonymousdesk.app"
+    },
+    "scheme": "anonymousdesk",
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      "expo-asset",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#adc6ff"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
