@@ -16,6 +16,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import * as authApi from "../api/auth";
 import { ApiError } from "../api/client";
+import { registerForPushNotifications } from "../api/notifications";
 
 const INDUSTRIES = ["Tech", "Legal", "Finance", "Healthcare", "Management", "HR", "Other"];
 
@@ -55,6 +56,12 @@ export default function AuthScreen() {
         console.log(data.json())
         await authApi.login({ email, password });
       }
+      try {
+        await registerForPushNotifications();
+      } catch (err) {
+        console.warn("Push registration after login failed:", err);
+      }
+
       router.replace("/(tabs)");
     } catch (err) {
       const message =

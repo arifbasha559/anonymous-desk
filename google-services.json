@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "473235470533",
+    "project_id": "anonymous-2910f",
+    "storage_bucket": "anonymous-2910f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:473235470533:android:506a2cfe3d6531dd55d8ac",
+        "android_client_info": {
+          "package_name": "com.anonymousdesk.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnqY8KuY2TbylVPjO864cFrFum80dfU5c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -33,10 +33,20 @@
           "icon": "./assets/notification-icon.png",
           "color": "#adc6ff"
         }
-      ]
+      ],
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "2fca274b-d371-408b-934f-2bb7db59edc5"
+      }
+    },
+    "owner": "dev_arif"
   }
 }
