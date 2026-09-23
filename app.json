@@ -17,6 +17,7 @@
       "bundleIdentifier": "com.anonymousdesk.app"
     },
     "android": {
+      "googleServicesFile": "./android/app/google-services.json",
       "adaptiveIcon": {
         "backgroundColor": "#131313"
       },

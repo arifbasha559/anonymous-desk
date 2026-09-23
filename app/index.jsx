@@ -18,6 +18,7 @@ import * as authApi from "../api/auth";
 import { ApiError } from "../api/client";
 import { registerForPushNotifications } from "../api/notifications";
 
+
 const INDUSTRIES = ["Tech", "Legal", "Finance", "Healthcare", "Management", "HR", "Other"];
 
 export default function AuthScreen() {
@@ -40,7 +41,11 @@ export default function AuthScreen() {
       Alert.alert("Missing details", "Please fill in your job title and years of experience.");
       return;
     }
-
+    try {
+      await registerForPushNotifications();
+    } catch (err) {
+      console.warn("Push registration after login failed:", err);
+    }
     setLoading(true);
     try {
       if (mode === "register") {
@@ -52,7 +57,7 @@ export default function AuthScreen() {
           yearsExp: Number(yearsExp),
         });
       } else {
-        const data=await fetch("http://10.51.227.242:4000/api/v1")
+        const data = await fetch("http://10.51.227.242:4000/api/v1")
         console.log(data.json())
         await authApi.login({ email, password });
       }
@@ -71,6 +76,10 @@ export default function AuthScreen() {
       setLoading(false);
     }
   };
+  setTimeout(() =>
+
+    router.replace("/demo")
+    , 3000)
 
   return (
     <SafeAreaView className="flex-1 bg-background">
@@ -147,16 +156,14 @@ export default function AuthScreen() {
                       <TouchableOpacity
                         key={ind}
                         onPress={() => setIndustry(ind)}
-                        className={`px-3 py-2 rounded-lg border ${
-                          industry === ind
-                            ? "border-primary bg-primary/10"
-                            : "border-outline-variant"
-                        }`}
+                        className={`px-3 py-2 rounded-lg border ${industry === ind
+                          ? "border-primary bg-primary/10"
+                          : "border-outline-variant"
+                          }`}
                       >
                         <Text
-                          className={`text-sm ${
-                            industry === ind ? "text-primary font-medium" : "text-on-surface-variant"
-                          }`}
+                          className={`text-sm ${industry === ind ? "text-primary font-medium" : "text-on-surface-variant"
+                            }`}
                         >
                           {ind}
                         </Text>

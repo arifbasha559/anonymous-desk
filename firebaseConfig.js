@@ -1,17 +1,25 @@
 // firebaseConfig.js
-import { initializeApp } from 'firebase/app';
-import { getMessaging, onMessage } from 'firebase/messaging';
+import { getApps, initializeApp } from 'firebase/app';
+import { getMessaging } from 'firebase/messaging';
 
-const firebaseConfig = {
-  apiKey: 'YOUR_API_KEY',
-  authDomain: 'YOUR_AUTH_DOMAIN',
-  projectId: 'YOUR_PROJECT_ID',
-  storageBucket: 'YOUR_STORAGE_BUCKET',
-  messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
-  appId: 'YOUR_APP_ID',
+const data = {
+  apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
+  authDomain: 'anonymous-2910f.firebaseapp.com',
+  projectId: 'anonymous-2910f',
+  storageBucket: 'anonymous-2910f.appspot.com',
+  messagingSenderId: '473235470533',
+  appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID,
 };
 
-const app = initializeApp(firebaseConfig);
+const firebaseConfig = data;
+
+let app;
+if (!getApps().length) {
+  app = initializeApp(firebaseConfig);
+} else {
+  app = getApps()[0]; // ✅ Get existing app if already initialized
+}
+
 const messaging = getMessaging(app);
 
 export { messaging };

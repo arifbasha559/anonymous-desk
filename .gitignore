@@ -39,7 +39,7 @@ yarn-error.*
 *-workspace
 
 example
-
+google-services.json*
 # generated native folders
 /ios
 /android

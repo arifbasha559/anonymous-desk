@@ -1,19 +1,16 @@
 import { View, Text } from 'react-native'
 import React from 'react'
-import SecureStore from 'expo-secure-store'
-
+import * as Notifications from 'expo-notifications'
 export default function demo() {
-    const token = async () => {
-
-        return await SecureStore.getItemAsync('ad_push_token');
-
-    }
-    let asda=token()
-    console.log(asda);
-
-    return (
-        <View>
-            <Text>demo</Text>
-        </View>
-    )
+  const func = async () => {
+    console.log("registering for push notifications")
+    const { data: pushToken } = await Notifications.getExpoPushTokenAsync();
+    console.log("Expo push token:", pushToken);
+  }
+  func()
+  return (
+    <View>
+      <Text>demo</Text>
+    </View>
+  )
 }
